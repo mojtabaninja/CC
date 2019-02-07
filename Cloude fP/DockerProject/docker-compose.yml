@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  login:
+    build: ./authentication
+    ports:
+      - 150:80
+    depends_on:
+      - database
+      - election
+    links:
+      - database
+      - election
+
+  election:
+    build: ./election
+    ports:
+      - 160:80
+    depends_on:
+      - database
+    links:
+      - database
+
+  database:
+    build: ./db
+    ports:
+      - 3306:3306
+    environment:
+     MYSQL_ROOT_PASSWORD: 1234

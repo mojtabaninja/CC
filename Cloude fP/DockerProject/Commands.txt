@@ -1,0 +1,5 @@
+sudo docker build --tag=authentication .
+sudo docker build --tag=db .
+sudo docker build --tag=election .
+sudo docker swarm init
+sudo docker stack deploy -c docker-compose.yml electionsys

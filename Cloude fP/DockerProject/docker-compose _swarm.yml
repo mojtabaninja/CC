@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  login:
+    image: authen:latest
+    ports:
+      - 150:80
+    depends_on:
+      - database
+      - elect
+    links:
+      - database
+      - elect
+
+    image: db:latest
+    ports:
+      - 3306:3306
+    environment:
+     MYSQL_ROOT_PASSWORD: 1234
+
+  elect:
+    image: election:latest
+    deploy:
+      replicas: 4
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: 30M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "160:80"
+    depends_on:
+      - database
+    links:
+      - database
+    networks:
+      - webnet
+networks:
+  webnet:

@@ -1,0 +1,6 @@
+Flask
+flask-restful
+flask-mysql
+MySQL-connector-python
+cryptography
+mysqlclient
